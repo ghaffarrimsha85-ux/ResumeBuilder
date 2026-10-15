@@ -1,0 +1,90 @@
+﻿@model ResumeBuilder.Models.User
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register - Resume Builder</title>
+    <link href="~/Content/auth.css" rel="stylesheet" />
+</head>
+<body class="auth-body">
+    <div class="auth-wrapper">
+
+        <div class="auth-side">
+            <div class="auth-brand">Resume<span>Builder</span></div>
+            <h2>Create your professional resume</h2>
+            <p>Sign up in a minute and start building a resume that stands out.</p>
+            <ul class="auth-points">
+                <li>8 easy sections to fill</li>
+                <li>Live preview while you edit</li>
+                <li>Save and edit anytime</li>
+            </ul>
+        </div>
+
+        <div class="auth-form-box">
+            <h3>Create Account</h3>
+            <p class="auth-sub">Fill in your details to get started.</p>
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert-box alert-error">@ViewBag.Error</div>
+            }
+
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+            {
+                <div class="form-group">
+                    <label for="FullName">Full Name</label>
+                    <input type="text" id="FullName" name="FullName" placeholder="Your full name"
+                           value="@(Model != null ? Model.FullName : "")" required />
+                </div>
+
+                <div class="row-2">
+                    <div class="form-group">
+                        <label for="Email">Email</label>
+                        <input type="email" id="Email" name="Email" placeholder="you@example.com"
+                               value="@(Model != null ? Model.Email : "")" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="Phone">Phone</label>
+                        <input type="text" id="Phone" name="Phone" placeholder="03XX XXXXXXX"
+                               value="@(Model != null ? Model.Phone : "")" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Password">Password</label>
+                    <div class="pass-wrap">
+                        <input type="password" id="Password" name="Password" placeholder="Create a password" required />
+                        <span class="pass-toggle" onclick="togglePass('Password', this)">Show</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="ConfirmPassword">Confirm Password</label>
+                    <div class="pass-wrap">
+                        <input type="password" id="ConfirmPassword" name="ConfirmPassword" placeholder="Re-enter your password" required />
+                        <span class="pass-toggle" onclick="togglePass('ConfirmPassword', this)">Show</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-auth">Register</button>
+            }
+
+            <div class="auth-switch">
+                Already have an account? @Html.ActionLink("Login", "Login", "Account")
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function togglePass(id, el) {
+            var input = document.getElementById(id);
+            if (input.type === "password") { input.type = "text"; el.textContent = "Hide"; }
+            else { input.type = "password"; el.textContent = "Show"; }
+        }
+    </script>
+</body>
+</html>

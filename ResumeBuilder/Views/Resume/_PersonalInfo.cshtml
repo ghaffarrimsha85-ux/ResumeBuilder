@@ -1,0 +1,60 @@
+﻿@model ResumeBuilder.Models.ResumeEditVM
+@using ResumeBuilder.Models
+@{
+    var p = Model.Personal ?? new PersonalInfo();
+    string photo = string.IsNullOrEmpty(p.PhotoPath) ? "" : Url.Content(p.PhotoPath);
+}
+<div class="step-head">
+    <h3>Personal Information</h3>
+    <p>Basic details that appear at the top of your resume.</p>
+</div>
+
+<div class="photo-row">
+    <div class="photo-box" id="photoBox">
+        @if (photo != "")
+        {
+            <img src="@photo" alt="Photo" />
+        }
+        else
+        {
+            <span>No photo</span>
+        }
+    </div>
+    <div>
+        <label class="btn-soft" for="photoFile">Upload Photo</label>
+        <input type="file" id="photoFile" accept="image/png,image/jpeg" hidden />
+        <div class="hint">JPG or PNG, max 2 MB</div>
+    </div>
+    <input type="hidden" id="PhotoPath" value="@p.PhotoPath" />
+</div>
+
+<div class="grid">
+    <div class="fg full">
+        <label>Resume Title</label>
+        <input type="text" id="Title" value="@Model.Resume.Title" placeholder="e.g. Software Developer Resume" />
+    </div>
+    <div class="fg">
+        <label>Full Name *</label>
+        <input type="text" id="FullName" value="@p.FullName" placeholder="Your full name" />
+    </div>
+    <div class="fg">
+        <label>Job Title</label>
+        <input type="text" id="JobTitle" value="@p.JobTitle" placeholder="e.g. ASP.NET Developer" />
+    </div>
+    <div class="fg">
+        <label>Email *</label>
+        <input type="email" id="Email" value="@p.Email" placeholder="you@example.com" />
+    </div>
+    <div class="fg">
+        <label>Phone</label>
+        <input type="text" id="Phone" value="@p.Phone" placeholder="03XX XXXXXXX" />
+    </div>
+    <div class="fg full">
+        <label>Address</label>
+        <input type="text" id="Address" value="@p.Address" placeholder="City, Country" />
+    </div>
+    <div class="fg full">
+        <label>Professional Summary</label>
+        <textarea id="Summary" rows="4" placeholder="Write 2-3 lines about yourself and your strengths.">@p.Summary</textarea>
+    </div>
+</div>

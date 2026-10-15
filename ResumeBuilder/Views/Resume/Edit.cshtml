@@ -1,0 +1,76 @@
+﻿@model ResumeBuilder.Models.ResumeEditVM
+@{
+    Layout = null;
+    string[] names = { "Personal", "Education", "Experience", "Skills", "Projects", "Certificates", "Languages", "Hobbies" };
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Build Resume - Resume Builder</title>
+    <link href="~/Content/wizard.css" rel="stylesheet" />
+</head>
+<body class="wz-body">
+
+    <div class="topbar">
+        <div class="brand">Resume<span>Builder</span></div>
+        @Html.ActionLink("← Dashboard", "Index", "Dashboard", null, new { @class = "btn-logout" })
+    </div>
+
+    <div class="wz-container">
+        <div class="wz-title">
+            <h2>Build Your Resume</h2>
+            <p>Fill one section at a time. Each step is saved when you click Next.</p>
+        </div>
+
+        <div class="stepper">
+            @for (int i = 0; i < names.Length; i++)
+            {
+                <div class="st @(i == 0 ? "active" : "")" data-index="@i">
+                    <span class="num">@(i + 1)</span>
+                    <div class="lbl">@names[i]</div>
+                </div>
+            }
+        </div>
+        <div class="progress"><div id="bar"></div></div>
+
+        <div class="wz-card">
+            <section class="step-panel active">@Html.Partial("_PersonalInfo", Model)</section>
+            <section class="step-panel">@Html.Partial("_Education", Model)</section>
+            <section class="step-panel">@Html.Partial("_Experience", Model)</section>
+            <section class="step-panel">@Html.Partial("_Skills", Model)</section>
+            <section class="step-panel">@Html.Partial("_Projects", Model)</section>
+            <section class="step-panel">@Html.Partial("_Certifications", Model)</section>
+            <section class="step-panel">@Html.Partial("_Languages", Model)</section>
+            <section class="step-panel">@Html.Partial("_Hobbies", Model)</section>
+        </div>
+
+        <div class="wz-nav">
+            <button type="button" id="btnBack" class="btn-back">← Back</button>
+            <button type="button" id="btnNext" class="btn-next">Save &amp; Next →</button>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+        window.RB = {
+            id: @Model.Resume.ResumeId,
+           finishUrl: '@Url.Action("Design", "Resume", new { id = Model.Resume.ResumeId })',
+            urls: {
+                personal: '@Url.Action("SavePersonal", "Resume")',
+                education: '@Url.Action("SaveEducation", "Resume")',
+                experience: '@Url.Action("SaveExperience", "Resume")',
+                skills: '@Url.Action("SaveSkills", "Resume")',
+                projects: '@Url.Action("SaveProjects", "Resume")',
+                certifications: '@Url.Action("SaveCertifications", "Resume")',
+                languages: '@Url.Action("SaveLanguages", "Resume")',
+                hobbies: '@Url.Action("SaveHobbies", "Resume")',
+                photo: '@Url.Action("UploadPhoto", "Resume")'
+            }
+        };
+    </script>
+    <script src="~/Scripts/wizard.js"></script>
+</body>
+</html>

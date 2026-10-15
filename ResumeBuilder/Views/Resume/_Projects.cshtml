@@ -1,0 +1,26 @@
+﻿@model ResumeBuilder.Models.ResumeEditVM
+@using ResumeBuilder.Models
+@helper Row(Project e)
+{
+    <div class="row-item">
+        <button type="button" class="rm" title="Remove" onclick="removeRow(this)">&times;</button>
+        <div class="grid">
+            <div class="fg"><label>Project Name</label><input type="text" data-f="ProjectName" value="@e.ProjectName" placeholder="e.g. Resume Builder" /></div>
+            <div class="fg"><label>Technologies</label><input type="text" data-f="Technologies" value="@e.Technologies" placeholder="e.g. ASP.NET MVC, SQL Server" /></div>
+            <div class="fg full"><label>Link (optional)</label><input type="text" data-f="ProjectLink" value="@e.ProjectLink" placeholder="https://..." /></div>
+            <div class="fg full"><label>Description</label><textarea data-f="Description" rows="3" placeholder="Briefly describe the project.">@e.Description</textarea></div>
+        </div>
+    </div>
+}
+<div class="step-head">
+    <h3>Projects</h3>
+    <p>Show your best work.</p>
+</div>
+<div class="list" id="list-projects">
+    @foreach (var e in Model.Projects)
+    {@Row(e)}
+</div>
+<button type="button" class="btn-add" onclick="addRow('projects')">+ Add More</button>
+<template id="tpl-projects">
+    @Row(new Project())
+</template>

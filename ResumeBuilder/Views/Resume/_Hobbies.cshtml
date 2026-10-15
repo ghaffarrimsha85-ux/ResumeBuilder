@@ -1,0 +1,23 @@
+﻿@model ResumeBuilder.Models.ResumeEditVM
+@using ResumeBuilder.Models
+@helper Row(Hobby e)
+{
+    <div class="row-item">
+        <button type="button" class="rm" title="Remove" onclick="removeRow(this)">&times;</button>
+        <div class="grid">
+            <div class="fg full"><label>Hobby</label><input type="text" data-f="HobbyName" value="@e.HobbyName" placeholder="e.g. Reading" /></div>
+        </div>
+    </div>
+}
+<div class="step-head">
+    <h3>Hobbies</h3>
+    <p>Last step. Add a few interests, then save.</p>
+</div>
+<div class="list" id="list-hobbies">
+    @foreach (var e in Model.Hobbies)
+    {@Row(e)}
+</div>
+<button type="button" class="btn-add" onclick="addRow('hobbies')">+ Add More</button>
+<template id="tpl-hobbies">
+    @Row(new Hobby())
+</template>

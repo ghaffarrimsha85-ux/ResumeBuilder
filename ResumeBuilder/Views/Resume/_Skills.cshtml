@@ -1,0 +1,32 @@
+﻿@model ResumeBuilder.Models.ResumeEditVM
+@using ResumeBuilder.Models
+@helper Row(Skill e)
+{
+    <div class="row-item">
+        <button type="button" class="rm" title="Remove" onclick="removeRow(this)">&times;</button>
+        <div class="grid">
+            <div class="fg"><label>Skill</label><input type="text" data-f="SkillName" value="@e.SkillName" placeholder="e.g. ASP.NET MVC" /></div>
+            <div class="fg">
+                <label>Level</label>
+                <select data-f="SkillLevel">
+                    @foreach (var lv in new[] { "Beginner", "Intermediate", "Advanced", "Expert" })
+                    {
+                        <option value="@lv" @(e.SkillLevel == lv ? "selected" : "")>@lv</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+}
+<div class="step-head">
+    <h3>Skills</h3>
+    <p>List your key technical and professional skills.</p>
+</div>
+<div class="list" id="list-skills">
+    @foreach (var e in Model.Skills)
+    {@Row(e)}
+</div>
+<button type="button" class="btn-add" onclick="addRow('skills')">+ Add More</button>
+<template id="tpl-skills">
+    @Row(new Skill())
+</template>

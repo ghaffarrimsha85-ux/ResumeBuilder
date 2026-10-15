@@ -1,0 +1,147 @@
+﻿@model ResumeBuilder.Models.ResumeEditVM
+@using ResumeBuilder.Models
+@{
+    var p = Model.Personal ?? new PersonalInfo();
+    string photo = string.IsNullOrEmpty(p.PhotoPath) ? "" : Url.Content(p.PhotoPath);
+}
+<div class="doc tpl-classic" id="resumeDoc">
+
+    <header class="doc-head">
+        @if (photo != "")
+        {
+            <div class="photo"><img src="@photo" alt="" /></div>
+        }
+        <div class="head-text">
+            <h1>@p.FullName</h1>
+            @if (!string.IsNullOrEmpty(p.JobTitle))
+            {
+                <div class="jt">@p.JobTitle</div>
+            }
+            <div class="contact">
+                @if (!string.IsNullOrEmpty(p.Email))
+                {<span>@p.Email</span>}
+                @if (!string.IsNullOrEmpty(p.Phone))
+                {<span>@p.Phone</span>}
+                @if (!string.IsNullOrEmpty(p.Address))
+                {<span>@p.Address</span>}
+            </div>
+        </div>
+    </header>
+
+    <div class="doc-body">
+
+        <div class="col col-side">
+            @if (Model.Skills.Any())
+            {
+                <section class="sec" data-sec="skills">
+                    <h2>Skills</h2>
+                    <ul class="skills">
+                        @foreach (var e in Model.Skills)
+                        {
+                            int w = e.SkillLevel == "Expert" ? 100 : e.SkillLevel == "Advanced" ? 75 : e.SkillLevel == "Intermediate" ? 50 : 25;
+                            <li>
+                                <span class="sn">@e.SkillName</span><span class="sl">@e.SkillLevel</span>
+                                <i class="bar"><b style="width:@(w)%"></b></i>
+                            </li>
+                        }
+                    </ul>
+                </section>
+            }
+            @if (Model.Certifications.Any())
+            {
+                <section class="sec" data-sec="certifications">
+                    <h2>Certifications</h2>
+                    @foreach (var e in Model.Certifications)
+                    {
+                        <div class="item">
+                            <div class="t">@e.CertificateName</div>
+                            <div class="s">@e.Authority</div>
+                            <div class="m">@e.Year</div>
+                        </div>
+                    }
+                </section>
+            }
+            @if (Model.Languages.Any())
+            {
+                <section class="sec" data-sec="languages">
+                    <h2>Languages</h2>
+                    <ul class="plain">
+                        @foreach (var e in Model.Languages)
+                        {
+                            <li><b>@e.LanguageName</b> <span class="m">@e.Proficiency</span></li>
+                        }
+                    </ul>
+                </section>
+            }
+            @if (Model.Hobbies.Any())
+            {
+                <section class="sec" data-sec="hobbies">
+                    <h2>Hobbies</h2>
+                    <ul class="plain">
+                        @foreach (var e in Model.Hobbies)
+                        {
+                            <li>@e.HobbyName</li>
+                        }
+                    </ul>
+                </section>
+            }
+        </div>
+
+        <div class="col col-main">
+            @if (!string.IsNullOrWhiteSpace(p.Summary))
+            {
+                <section class="sec" data-sec="summary">
+                    <h2>Summary</h2>
+                    <p class="sum">@p.Summary</p>
+                </section>
+            }
+            @if (Model.Experiences.Any())
+            {
+                <section class="sec" data-sec="experience">
+                    <h2>Experience</h2>
+                    @foreach (var e in Model.Experiences)
+                    {
+                        <div class="item">
+                            <div class="t">@e.Designation</div>
+                            <div class="s">@e.Company</div>
+                            <div class="m">@e.Duration</div>
+                            @if (!string.IsNullOrEmpty(e.Description))
+                            {<p>@e.Description</p>}
+                        </div>
+                    }
+                </section>
+            }
+            @if (Model.Educations.Any())
+            {
+                <section class="sec" data-sec="education">
+                    <h2>Education</h2>
+                    @foreach (var e in Model.Educations)
+                    {
+                        <div class="item">
+                            <div class="t">@e.Degree</div>
+                            <div class="s">@e.Institute</div>
+                            <div class="m">@e.Year</div>
+                        </div>
+                    }
+                </section>
+            }
+            @if (Model.Projects.Any())
+            {
+                <section class="sec" data-sec="projects">
+                    <h2>Projects</h2>
+                    @foreach (var e in Model.Projects)
+                    {
+                        <div class="item">
+                            <div class="t">@e.ProjectName</div>
+                            <div class="s">@e.Technologies</div>
+                            @if (!string.IsNullOrEmpty(e.ProjectLink))
+                            {<div class="m">@e.ProjectLink</div>}
+                            @if (!string.IsNullOrEmpty(e.Description))
+                            {<p>@e.Description</p>}
+                        </div>
+                    }
+                </section>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,177 @@
+﻿@model List<ResumeBuilder.Models.Resume>
+@{
+    Layout = null;
+    string userName = Session["UserName"] != null ? Session["UserName"].ToString() : "User";
+    string firstName = userName.Split(' ')[0];
+    string initial = userName.Length > 0 ? userName.Substring(0, 1).ToUpper() : "U";
+
+    int total = Model != null ? Model.Count : 0;
+    int designed = Model != null ? Model.Count(x => !string.IsNullOrEmpty(x.TemplateName)) : 0;
+    string lastUpdated = total > 0 ? string.Format("{0:dd MMM yyyy}", Model.Max(x => x.UpdatedAt)) : "-";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Resume Builder</title>
+    <link href="~/Content/dashboard.css" rel="stylesheet" />
+</head>
+<body class="dash-body">
+
+    <div class="topbar">
+        <div class="brand"><span class="logo">R</span>Resume<span class="accent">Builder</span></div>
+        <div class="user-box">
+            <div class="avatar">@initial</div>
+            <span class="user-name">@userName</span>
+            @Html.ActionLink("Logout", "Logout", "Account", null, new { @class = "btn-logout" })
+        </div>
+    </div>
+
+    <div class="dash-container">
+
+        <!-- ===== Hero ===== -->
+        <section class="hero">
+            <div class="hero-text">
+                <span class="chip">Your Workspace</span>
+                <h1>Welcome back, @firstName 👋</h1>
+                <p>Create a professional, ATS-friendly resume in minutes. Pick a template, customize it and download it as a PDF.</p>
+                @using (Html.BeginForm("CreateResume", "Dashboard", FormMethod.Post))
+                {
+                    <button type="submit" class="btn-hero">+ Create New Resume</button>
+                }
+            </div>
+            <div class="hero-art" aria-hidden="true">
+                <div class="art-paper p1"><i></i><b></b><b class="s"></b><b></b></div>
+                <div class="art-paper p2"><i></i><b></b><b class="s"></b><b></b></div>
+                <div class="art-paper p3"><i></i><b></b><b class="s"></b><b></b></div>
+            </div>
+        </section>
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert-box alert-success">@TempData["Success"]</div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert-box alert-error">@TempData["Error"]</div>
+        }
+
+        <!-- ===== Stats ===== -->
+        <section class="stats">
+            <div class="stat">
+                <div class="stat-ico blue">📄</div>
+                <div><div class="stat-num">@total</div><div class="stat-lbl">Total Resumes</div></div>
+            </div>
+            <div class="stat">
+                <div class="stat-ico green">🎨</div>
+                <div><div class="stat-num">@designed</div><div class="stat-lbl">Designed &amp; Ready</div></div>
+            </div>
+            <div class="stat">
+                <div class="stat-ico amber">🕒</div>
+                <div><div class="stat-num sm">@lastUpdated</div><div class="stat-lbl">Last Updated</div></div>
+            </div>
+            <div class="stat">
+                <div class="stat-ico purple">✨</div>
+                <div><div class="stat-num">9</div><div class="stat-lbl">Templates Available</div></div>
+            </div>
+        </section>
+
+        <!-- ===== My Resumes ===== -->
+        <section class="section-head">
+            <div>
+                <h2>My Resumes</h2>
+                <p>Edit details, change the design or download as PDF.</p>
+            </div>
+            @if (total > 0)
+            {
+                <div class="search-box">
+                    <input type="text" id="searchBox" placeholder="Search resumes..." />
+                </div>
+            }
+        </section>
+
+        @if (total == 0)
+        {
+            <div class="empty-box">
+                <div class="empty-art">
+                    <div class="art-paper p2"><i></i><b></b><b class="s"></b><b></b></div>
+                </div>
+                <h3>No resumes yet</h3>
+                <p>Start with your first resume. It only takes a few minutes.</p>
+                @using (Html.BeginForm("CreateResume", "Dashboard", FormMethod.Post))
+                {
+                    <button type="submit" class="btn-create">+ Create Your First Resume</button>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="resume-grid" id="resumeGrid">
+                @foreach (var r in Model)
+                {
+                    string c = string.IsNullOrEmpty(r.PrimaryColor) ? "#1d4ed8" : r.PrimaryColor;
+                    string title = string.IsNullOrEmpty(r.Title) ? "Untitled Resume" : r.Title;
+                    bool hasTpl = !string.IsNullOrEmpty(r.TemplateName);
+                    <div class="rcard" data-title="@title.ToLower()">
+                        <div class="rpreview" style="--c:@c">
+                            <div class="paper">
+                                <i class="ph"></i>
+                                <b class="w60"></b><b class="w90"></b><b class="w75"></b>
+                                <i class="ph2"></i>
+                                <b class="w90"></b><b class="w50"></b>
+                            </div>
+                            <span class="badge @(hasTpl ? "ok" : "draft")">@(hasTpl ? r.TemplateName : "Draft")</span>
+                        </div>
+                        <div class="rbody">
+                            <h4>@title</h4>
+                            <div class="meta">
+                                <span>Created @string.Format("{0:dd MMM yyyy}", r.CreatedAt)</span>
+                                <span>Updated @string.Format("{0:dd MMM yyyy}", r.UpdatedAt)</span>
+                            </div>
+                            <div class="ract">
+                                @Html.ActionLink("Edit", "Edit", "Resume", new { id = r.ResumeId }, new { @class = "btn-edit" })
+                                @Html.ActionLink("Design / PDF", "Design", "Resume", new { id = r.ResumeId }, new { @class = "btn-design" })
+                                @using (Html.BeginForm("DeleteResume", "Dashboard", new { id = r.ResumeId }, FormMethod.Post,
+                                    new { onsubmit = "return confirm('Are you sure you want to delete this resume?');" }))
+                                {
+                                    <button type="submit" class="btn-delete" title="Delete">🗑</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="no-result hidden" id="noResult">No resume matches your search.</div>
+        }
+
+        <!-- ===== How it works ===== -->
+        <section class="how">
+            <h2>Build a resume in 3 simple steps</h2>
+            <div class="how-grid">
+                <div class="how-card"><div class="num">1</div><h4>Fill your details</h4><p>Enter your information step by step in 8 easy sections.</p></div>
+                <div class="how-card"><div class="num">2</div><h4>Pick a template</h4><p>Choose from 9 modern designs and customize colors and fonts.</p></div>
+                <div class="how-card"><div class="num">3</div><h4>Download PDF</h4><p>Get an A4, print-ready PDF that looks exactly like the preview.</p></div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="dash-footer">Resume Builder &copy; @DateTime.Now.Year</footer>
+
+    <script>
+        var sb = document.getElementById('searchBox');
+        if (sb) {
+            sb.addEventListener('input', function () {
+                var q = this.value.trim().toLowerCase(), shown = 0;
+                document.querySelectorAll('#resumeGrid .rcard').forEach(function (c) {
+                    var ok = c.getAttribute('data-title').indexOf(q) > -1;
+                    c.style.display = ok ? '' : 'none';
+                    if (ok) shown++;
+                });
+                document.getElementById('noResult').classList.toggle('hidden', shown > 0);
+            });
+        }
+    </script>
+</body>
+</html>

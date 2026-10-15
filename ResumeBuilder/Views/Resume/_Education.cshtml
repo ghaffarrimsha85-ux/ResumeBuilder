@@ -1,0 +1,26 @@
+﻿
+@model ResumeBuilder.Models.ResumeEditVM
+@using ResumeBuilder.Models
+@helper Row(Education e)
+{
+    <div class="row-item">
+        <button type="button" class="rm" title="Remove" onclick="removeRow(this)">&times;</button>
+        <div class="grid">
+            <div class="fg"><label>Degree</label><input type="text" data-f="Degree" value="@e.Degree" placeholder="e.g. BS Computer Science" /></div>
+            <div class="fg"><label>Institute</label><input type="text" data-f="Institute" value="@e.Institute" placeholder="University / College" /></div>
+            <div class="fg"><label>Year</label><input type="text" data-f="Year" value="@e.Year" placeholder="e.g. 2020 - 2024" /></div>
+        </div>
+    </div>
+}
+<div class="step-head">
+    <h3>Education</h3>
+    <p>Add your degrees, starting with the most recent.</p>
+</div>
+<div class="list" id="list-education">
+    @foreach (var e in Model.Educations)
+    {@Row(e)}
+</div>
+<button type="button" class="btn-add" onclick="addRow('education')">+ Add More</button>
+<template id="tpl-education">
+    @Row(new Education())
+</template>

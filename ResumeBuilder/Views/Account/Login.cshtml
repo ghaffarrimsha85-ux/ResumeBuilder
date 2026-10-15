@@ -1,0 +1,71 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Resume Builder</title>
+    <link href="~/Content/auth.css" rel="stylesheet" />
+</head>
+<body class="auth-body">
+    <div class="auth-wrapper">
+
+        <div class="auth-side">
+            <div class="auth-brand">Resume<span>Builder</span></div>
+            <h2>Welcome back!</h2>
+            <p>Login to continue building and managing your professional resumes.</p>
+            <ul class="auth-points">
+                <li>Choose from modern templates</li>
+                <li>Customize colors and fonts</li>
+                <li>Download as PDF instantly</li>
+            </ul>
+        </div>
+
+        <div class="auth-form-box">
+            <h3>Login</h3>
+            <p class="auth-sub">Enter your email and password to continue.</p>
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert-box alert-success">@TempData["Success"]</div>
+            }
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert-box alert-error">@ViewBag.Error</div>
+            }
+
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+            {
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="pass-wrap">
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required />
+                        <span class="pass-toggle" onclick="togglePass('password', this)">Show</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-auth">Login</button>
+            }
+
+            <div class="auth-switch">
+                Don't have an account? @Html.ActionLink("Register", "Register", "Account")
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function togglePass(id, el) {
+            var input = document.getElementById(id);
+            if (input.type === "password") { input.type = "text"; el.textContent = "Hide"; }
+            else { input.type = "password"; el.textContent = "Show"; }
+        }
+    </script>
+</body>
+</html>

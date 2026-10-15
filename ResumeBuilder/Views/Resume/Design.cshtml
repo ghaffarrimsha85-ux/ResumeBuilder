@@ -1,0 +1,177 @@
+﻿@model ResumeBuilder.Models.ResumeEditVM
+@using ResumeBuilder.Models
+@{
+    Layout = null;
+    var r = Model.Resume;
+    var p = Model.Personal ?? new PersonalInfo();
+
+    var avail = new List<string>();
+    if (!string.IsNullOrWhiteSpace(p.Summary)) { avail.Add("summary"); }
+    if (Model.Experiences.Any()) { avail.Add("experience"); }
+    if (Model.Educations.Any()) { avail.Add("education"); }
+    if (Model.Projects.Any()) { avail.Add("projects"); }
+    if (Model.Skills.Any()) { avail.Add("skills"); }
+    if (Model.Certifications.Any()) { avail.Add("certifications"); }
+    if (Model.Languages.Any()) { avail.Add("languages"); }
+    if (Model.Hobbies.Any()) { avail.Add("hobbies"); }
+
+    var settings = new
+    {
+        template = r.TemplateName ?? "",
+        pri = r.PrimaryColor ?? "#1d4ed8",
+        sec = r.SecondaryColor ?? "#3b82f6",
+        txt = r.TextColor ?? "#334155",
+        bg = r.BackgroundColor ?? "#ffffff",
+        font = r.FontFamily ?? "Arial",
+        size = r.FontSize ?? "Medium",
+        theme = r.Theme ?? "Light",
+        spacing = r.Spacing ?? "Normal",
+        order = r.SectionOrder ?? "",
+        hidden = r.HiddenSections ?? ""
+    };
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Design Resume - Resume Builder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <link href="~/Content/resume-doc.css" rel="stylesheet" />
+    <link href="~/Content/design.css" rel="stylesheet" />
+</head>
+<body class="dz-body">
+
+    <div class="topbar no-print">
+        <div class="brand">Resume<span>Builder</span></div>
+        <div class="top-links">
+            @Html.ActionLink("Edit Details", "Edit", "Resume", new { id = r.ResumeId }, new { @class = "btn-logout" })
+            @Html.ActionLink("Dashboard", "Index", "Dashboard", null, new { @class = "btn-logout" })
+        </div>
+    </div>
+
+    <!-- ================= STAGE 1: TEMPLATES ================= -->
+    <div id="stageTemplates" class="stage no-print">
+        <div class="dz-container">
+            <div class="dz-title">
+                <h2>Choose a Template</h2>
+                <p>Pick a design you like. You can customize colors, fonts and layout in the next step.</p>
+            </div>
+
+            <div class="tpl-grid">
+                <div class="tpl-card" data-tpl="classic"><div class="thumb"></div><h4>Classic</h4><p>Centered header with a clean single column.</p><button type="button" class="btn-use">Use This Template</button></div>
+                <div class="tpl-card" data-tpl="modern"><div class="thumb"></div><h4>Modern</h4><p>Gradient header with a left sidebar.</p><button type="button" class="btn-use">Use This Template</button></div>
+                <div class="tpl-card" data-tpl="executive"><div class="thumb"></div><h4>Executive</h4><p>Bold header band with boxed section titles.</p><button type="button" class="btn-use">Use This Template</button></div>
+                <div class="tpl-card" data-tpl="minimal"><div class="thumb"></div><h4>Minimal</h4><p>Light, airy and distraction-free.</p><button type="button" class="btn-use">Use This Template</button></div>
+                <div class="tpl-card" data-tpl="creative"><div class="thumb"></div><h4>Creative</h4><p>Accent bar with a colored right sidebar.</p><button type="button" class="btn-use">Use This Template</button></div>
+                <div class="tpl-card" data-tpl="compact"><div class="thumb"></div><h4>Compact</h4><p>Dense layout to fit more on one page.</p><button type="button" class="btn-use">Use This Template</button></div>
+                <div class="tpl-card" data-tpl="elegant"><div class="thumb"></div><h4>Elegant <span class="new">NEW</span></h4><p>Refined centered style with decorative headings.</p><button type="button" class="btn-use">Use This Template</button></div>
+                <div class="tpl-card" data-tpl="bold"><div class="thumb"></div><h4>Bold <span class="new">NEW</span></h4><p>Slanted gradient header with a strong look.</p><button type="button" class="btn-use">Use This Template</button></div>
+                <div class="tpl-card" data-tpl="timeline"><div class="thumb"></div><h4>Timeline <span class="new">NEW</span></h4><p>Experience and education on a visual timeline.</p><button type="button" class="btn-use">Use This Template</button></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= STAGE 2: EDITOR + LIVE PREVIEW ================= -->
+    <div id="stageEditor" class="stage hidden">
+        <div class="dz-bar no-print">
+            <button type="button" id="btnChange" class="btn-outline">← Change Template</button>
+            <div class="bar-right">
+                <button type="button" id="btnSave" class="btn-outline">Save</button>
+                <button type="button" id="btnPdf" class="btn-main">Download PDF</button>
+            </div>
+        </div>
+
+        <div class="dz-layout">
+
+            <!-- Left: customization -->
+            <aside class="panel no-print">
+
+                <div class="pg">
+                    <h5>Color Presets</h5>
+                    <div class="swatches">
+                        <button type="button" class="sw" data-pri="#1d4ed8" data-sec="#3b82f6" style="background:#1d4ed8"></button>
+                        <button type="button" class="sw" data-pri="#1e3a8a" data-sec="#0ea5e9" style="background:#1e3a8a"></button>
+                        <button type="button" class="sw" data-pri="#0f766e" data-sec="#14b8a6" style="background:#0f766e"></button>
+                        <button type="button" class="sw" data-pri="#6d28d9" data-sec="#a78bfa" style="background:#6d28d9"></button>
+                        <button type="button" class="sw" data-pri="#15803d" data-sec="#4ade80" style="background:#15803d"></button>
+                        <button type="button" class="sw" data-pri="#1f2937" data-sec="#6b7280" style="background:#1f2937"></button>
+                    </div>
+                </div>
+
+                <div class="pg">
+                    <h5>Colors</h5>
+                    <div class="color-grid">
+                        <label>Primary<input type="color" id="c-pri" /></label>
+                        <label>Secondary<input type="color" id="c-sec" /></label>
+                        <label>Text<input type="color" id="c-txt" /></label>
+                        <label>Background<input type="color" id="c-bg" /></label>
+                    </div>
+                </div>
+
+                <div class="pg">
+                    <h5>Font</h5>
+                    <select id="fontSel">
+                        <option>Arial</option>
+                        <option>Roboto</option>
+                        <option>Poppins</option>
+                        <option>Times New Roman</option>
+                    </select>
+                </div>
+
+                <div class="pg">
+                    <h5>Font Size</h5>
+                    <div class="seg" data-group="size">
+                        <button type="button" data-v="Small">Small</button>
+                        <button type="button" data-v="Medium">Medium</button>
+                        <button type="button" data-v="Large">Large</button>
+                    </div>
+                </div>
+
+                <div class="pg">
+                    <h5>Theme</h5>
+                    <div class="seg" data-group="theme">
+                        <button type="button" data-v="Light">Light</button>
+                        <button type="button" data-v="Dark">Dark</button>
+                    </div>
+                </div>
+
+                <div class="pg">
+                    <h5>Spacing</h5>
+                    <div class="seg" data-group="spacing">
+                        <button type="button" data-v="Compact">Compact</button>
+                        <button type="button" data-v="Normal">Normal</button>
+                        <button type="button" data-v="Spacious">Spacious</button>
+                    </div>
+                </div>
+
+                <div class="pg">
+                    <h5>Sections (show / hide / reorder)</h5>
+                    <ul id="secList" class="sec-list"></ul>
+                </div>
+
+                <p class="tip">Tip: in the print window choose <b>Save as PDF</b>, paper <b>A4</b>, margins <b>None</b>.</p>
+            </aside>
+
+            <!-- Right: live preview -->
+            <main class="preview-wrap print-area">
+                <div class="scale-box" id="scaleBox">
+                    @Html.Partial("_ResumeDocument", Model)
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div id="toast" class="toast no-print"></div>
+
+    <script>
+        window.DZ = {
+            id: @r.ResumeId,
+            saveUrl: '@Url.Action("SaveDesign", "Resume")',
+            s: @Html.Raw(Json.Encode(settings)),
+            available: @Html.Raw(Json.Encode(avail))
+        };
+    </script>
+    <script src="~/Scripts/design.js"></script>
+</body>
+</html>

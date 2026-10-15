@@ -1,0 +1,32 @@
+﻿@model ResumeBuilder.Models.ResumeEditVM
+@using ResumeBuilder.Models
+@helper Row(Language e)
+{
+    <div class="row-item">
+        <button type="button" class="rm" title="Remove" onclick="removeRow(this)">&times;</button>
+        <div class="grid">
+            <div class="fg"><label>Language</label><input type="text" data-f="LanguageName" value="@e.LanguageName" placeholder="e.g. English" /></div>
+            <div class="fg">
+                <label>Proficiency</label>
+                <select data-f="Proficiency">
+                    @foreach (var lv in new[] { "Basic", "Conversational", "Fluent", "Native" })
+                    {
+                        <option value="@lv" @(e.Proficiency == lv ? "selected" : "")>@lv</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+}
+<div class="step-head">
+    <h3>Languages</h3>
+    <p>Languages you can speak or write.</p>
+</div>
+<div class="list" id="list-languages">
+    @foreach (var e in Model.Languages)
+    {@Row(e)}
+</div>
+<button type="button" class="btn-add" onclick="addRow('languages')">+ Add More</button>
+<template id="tpl-languages">
+    @Row(new Language())
+</template>

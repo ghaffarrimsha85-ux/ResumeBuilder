@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2e73fa818bb54c8895cff70791a3c05d" Name="Diagram1">
+        <EntityTypeShape EntityType="ResumeBuilderDBnewModel.Certification" Width="1.5" PointX="5.25" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="ResumeBuilderDBnewModel.Education" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ResumeBuilderDBnewModel.Experience" Width="1.5" PointX="5.25" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ResumeBuilderDBnewModel.Hobby" Width="1.5" PointX="5.25" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ResumeBuilderDBnewModel.Language" Width="1.5" PointX="5.25" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ResumeBuilderDBnewModel.PersonalInfo" Width="1.5" PointX="5.25" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ResumeBuilderDBnewModel.Project" Width="1.5" PointX="5.25" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ResumeBuilderDBnewModel.Resume" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ResumeBuilderDBnewModel.Skill" Width="1.5" PointX="5.25" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="ResumeBuilderDBnewModel.User" Width="1.5" PointX="0.75" PointY="12.25" IsExpanded="true" />
+        <AssociationConnector Association="ResumeBuilderDBnewModel.FK__Certifica__Resum__6A30C649" ManuallyRouted="false" />
+        <AssociationConnector Association="ResumeBuilderDBnewModel.FK__Education__Resum__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="ResumeBuilderDBnewModel.FK__Experienc__Resum__619B8048" ManuallyRouted="false" />
+        <AssociationConnector Association="ResumeBuilderDBnewModel.FK__Hobbies__ResumeI__6FE99F9F" ManuallyRouted="false" />
+        <AssociationConnector Association="ResumeBuilderDBnewModel.FK__Languages__Resum__6D0D32F4" ManuallyRouted="false" />
+        <AssociationConnector Association="ResumeBuilderDBnewModel.FK__PersonalI__Resum__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="ResumeBuilderDBnewModel.FK__Projects__Resume__6754599E" ManuallyRouted="false" />
+        <AssociationConnector Association="ResumeBuilderDBnewModel.FK__Resumes__UserId__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="ResumeBuilderDBnewModel.FK__Skills__ResumeId__6477ECF3" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

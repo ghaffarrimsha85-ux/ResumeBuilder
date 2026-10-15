@@ -1,0 +1,26 @@
+﻿@model ResumeBuilder.Models.ResumeEditVM
+@using ResumeBuilder.Models
+@helper Row(Experience e)
+{
+    <div class="row-item">
+        <button type="button" class="rm" title="Remove" onclick="removeRow(this)">&times;</button>
+        <div class="grid">
+            <div class="fg"><label>Company</label><input type="text" data-f="Company" value="@e.Company" placeholder="Company name" /></div>
+            <div class="fg"><label>Designation</label><input type="text" data-f="Designation" value="@e.Designation" placeholder="e.g. Software Developer" /></div>
+            <div class="fg full"><label>Duration</label><input type="text" data-f="Duration" value="@e.Duration" placeholder="e.g. Jan 2023 - Present" /></div>
+            <div class="fg full"><label>Description</label><textarea data-f="Description" rows="3" placeholder="What did you work on?">@e.Description</textarea></div>
+        </div>
+    </div>
+}
+<div class="step-head">
+    <h3>Experience</h3>
+    <p>Add your jobs or internships. Skip this step if you have none yet.</p>
+</div>
+<div class="list" id="list-experience">
+    @foreach (var e in Model.Experiences)
+    {@Row(e)}
+</div>
+<button type="button" class="btn-add" onclick="addRow('experience')">+ Add More</button>
+<template id="tpl-experience">
+    @Row(new Experience())
+</template>

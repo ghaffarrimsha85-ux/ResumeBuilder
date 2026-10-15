@@ -1,0 +1,756 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ResumeBuilderDBnewModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Certifications">
+          <Key>
+            <PropertyRef Name="CertificationId" />
+          </Key>
+          <Property Name="CertificationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResumeId" Type="int" Nullable="false" />
+          <Property Name="CertificateName" Type="nvarchar" MaxLength="150" />
+          <Property Name="Authority" Type="nvarchar" MaxLength="150" />
+          <Property Name="Year" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Education">
+          <Key>
+            <PropertyRef Name="EducationId" />
+          </Key>
+          <Property Name="EducationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResumeId" Type="int" Nullable="false" />
+          <Property Name="Degree" Type="nvarchar" MaxLength="100" />
+          <Property Name="Institute" Type="nvarchar" MaxLength="150" />
+          <Property Name="Year" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Experience">
+          <Key>
+            <PropertyRef Name="ExperienceId" />
+          </Key>
+          <Property Name="ExperienceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResumeId" Type="int" Nullable="false" />
+          <Property Name="Company" Type="nvarchar" MaxLength="150" />
+          <Property Name="Designation" Type="nvarchar" MaxLength="100" />
+          <Property Name="Duration" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Hobbies">
+          <Key>
+            <PropertyRef Name="HobbyId" />
+          </Key>
+          <Property Name="HobbyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResumeId" Type="int" Nullable="false" />
+          <Property Name="HobbyName" Type="nvarchar" MaxLength="80" />
+        </EntityType>
+        <EntityType Name="Languages">
+          <Key>
+            <PropertyRef Name="LanguageId" />
+          </Key>
+          <Property Name="LanguageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResumeId" Type="int" Nullable="false" />
+          <Property Name="LanguageName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Proficiency" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="PersonalInfo">
+          <Key>
+            <PropertyRef Name="PersonalInfoId" />
+          </Key>
+          <Property Name="PersonalInfoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResumeId" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" />
+          <Property Name="JobTitle" Type="nvarchar" MaxLength="100" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="30" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="PhotoPath" Type="nvarchar" MaxLength="250" />
+          <Property Name="Summary" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Projects">
+          <Key>
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="ProjectId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResumeId" Type="int" Nullable="false" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Technologies" Type="nvarchar" MaxLength="200" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ProjectLink" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Resumes">
+          <Key>
+            <PropertyRef Name="ResumeId" />
+          </Key>
+          <Property Name="ResumeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" />
+          <Property Name="TemplateName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PrimaryColor" Type="nvarchar" MaxLength="20" />
+          <Property Name="SecondaryColor" Type="nvarchar" MaxLength="20" />
+          <Property Name="TextColor" Type="nvarchar" MaxLength="20" />
+          <Property Name="BackgroundColor" Type="nvarchar" MaxLength="20" />
+          <Property Name="FontFamily" Type="nvarchar" MaxLength="50" />
+          <Property Name="FontSize" Type="nvarchar" MaxLength="10" />
+          <Property Name="Theme" Type="nvarchar" MaxLength="10" />
+          <Property Name="Spacing" Type="nvarchar" MaxLength="10" />
+          <Property Name="SectionOrder" Type="nvarchar" MaxLength="200" />
+          <Property Name="HiddenSections" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="UpdatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Skills">
+          <Key>
+            <PropertyRef Name="SkillId" />
+          </Key>
+          <Property Name="SkillId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResumeId" Type="int" Nullable="false" />
+          <Property Name="SkillName" Type="nvarchar" MaxLength="80" />
+          <Property Name="SkillLevel" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="30" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__Certifica__Resum__6A30C649">
+          <End Role="Resumes" Type="Self.Resumes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Certifications" Type="Self.Certifications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resumes">
+              <PropertyRef Name="ResumeId" />
+            </Principal>
+            <Dependent Role="Certifications">
+              <PropertyRef Name="ResumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Education__Resum__5EBF139D">
+          <End Role="Resumes" Type="Self.Resumes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Education" Type="Self.Education" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resumes">
+              <PropertyRef Name="ResumeId" />
+            </Principal>
+            <Dependent Role="Education">
+              <PropertyRef Name="ResumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Experienc__Resum__619B8048">
+          <End Role="Resumes" Type="Self.Resumes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Experience" Type="Self.Experience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resumes">
+              <PropertyRef Name="ResumeId" />
+            </Principal>
+            <Dependent Role="Experience">
+              <PropertyRef Name="ResumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Hobbies__ResumeI__6FE99F9F">
+          <End Role="Resumes" Type="Self.Resumes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Hobbies" Type="Self.Hobbies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resumes">
+              <PropertyRef Name="ResumeId" />
+            </Principal>
+            <Dependent Role="Hobbies">
+              <PropertyRef Name="ResumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Languages__Resum__6D0D32F4">
+          <End Role="Resumes" Type="Self.Resumes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Languages" Type="Self.Languages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resumes">
+              <PropertyRef Name="ResumeId" />
+            </Principal>
+            <Dependent Role="Languages">
+              <PropertyRef Name="ResumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PersonalI__Resum__5BE2A6F2">
+          <End Role="Resumes" Type="Self.Resumes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resumes">
+              <PropertyRef Name="ResumeId" />
+            </Principal>
+            <Dependent Role="PersonalInfo">
+              <PropertyRef Name="ResumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Projects__Resume__6754599E">
+          <End Role="Resumes" Type="Self.Resumes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Projects" Type="Self.Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resumes">
+              <PropertyRef Name="ResumeId" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="ResumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Resumes__UserId__4D94879B">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Resumes" Type="Self.Resumes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Resumes">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Skills__ResumeId__6477ECF3">
+          <End Role="Resumes" Type="Self.Resumes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Skills" Type="Self.Skills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resumes">
+              <PropertyRef Name="ResumeId" />
+            </Principal>
+            <Dependent Role="Skills">
+              <PropertyRef Name="ResumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ResumeBuilderDBnewModelStoreContainer">
+          <EntitySet Name="Certifications" EntityType="Self.Certifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Education" EntityType="Self.Education" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Experience" EntityType="Self.Experience" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hobbies" EntityType="Self.Hobbies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonalInfo" EntityType="Self.PersonalInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Resumes" EntityType="Self.Resumes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Skills" EntityType="Self.Skills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Certifica__Resum__6A30C649" Association="Self.FK__Certifica__Resum__6A30C649">
+            <End Role="Resumes" EntitySet="Resumes" />
+            <End Role="Certifications" EntitySet="Certifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Education__Resum__5EBF139D" Association="Self.FK__Education__Resum__5EBF139D">
+            <End Role="Resumes" EntitySet="Resumes" />
+            <End Role="Education" EntitySet="Education" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Experienc__Resum__619B8048" Association="Self.FK__Experienc__Resum__619B8048">
+            <End Role="Resumes" EntitySet="Resumes" />
+            <End Role="Experience" EntitySet="Experience" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Hobbies__ResumeI__6FE99F9F" Association="Self.FK__Hobbies__ResumeI__6FE99F9F">
+            <End Role="Resumes" EntitySet="Resumes" />
+            <End Role="Hobbies" EntitySet="Hobbies" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Languages__Resum__6D0D32F4" Association="Self.FK__Languages__Resum__6D0D32F4">
+            <End Role="Resumes" EntitySet="Resumes" />
+            <End Role="Languages" EntitySet="Languages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PersonalI__Resum__5BE2A6F2" Association="Self.FK__PersonalI__Resum__5BE2A6F2">
+            <End Role="Resumes" EntitySet="Resumes" />
+            <End Role="PersonalInfo" EntitySet="PersonalInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Projects__Resume__6754599E" Association="Self.FK__Projects__Resume__6754599E">
+            <End Role="Resumes" EntitySet="Resumes" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Resumes__UserId__4D94879B" Association="Self.FK__Resumes__UserId__4D94879B">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Resumes" EntitySet="Resumes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Skills__ResumeId__6477ECF3" Association="Self.FK__Skills__ResumeId__6477ECF3">
+            <End Role="Resumes" EntitySet="Resumes" />
+            <End Role="Skills" EntitySet="Skills" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ResumeBuilderDBnewModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Certification">
+          <Key>
+            <PropertyRef Name="CertificationId" />
+          </Key>
+          <Property Name="CertificationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ResumeId" Type="Int32" Nullable="false" />
+          <Property Name="CertificateName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Authority" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Year" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Resume" Relationship="Self.FK__Certifica__Resum__6A30C649" FromRole="Certifications" ToRole="Resumes" />
+        </EntityType>
+        <EntityType Name="Education">
+          <Key>
+            <PropertyRef Name="EducationId" />
+          </Key>
+          <Property Name="EducationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ResumeId" Type="Int32" Nullable="false" />
+          <Property Name="Degree" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Institute" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Year" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Resume" Relationship="Self.FK__Education__Resum__5EBF139D" FromRole="Education" ToRole="Resumes" />
+        </EntityType>
+        <EntityType Name="Experience">
+          <Key>
+            <PropertyRef Name="ExperienceId" />
+          </Key>
+          <Property Name="ExperienceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ResumeId" Type="Int32" Nullable="false" />
+          <Property Name="Company" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Designation" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Duration" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Resume" Relationship="Self.FK__Experienc__Resum__619B8048" FromRole="Experience" ToRole="Resumes" />
+        </EntityType>
+        <EntityType Name="Hobby">
+          <Key>
+            <PropertyRef Name="HobbyId" />
+          </Key>
+          <Property Name="HobbyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ResumeId" Type="Int32" Nullable="false" />
+          <Property Name="HobbyName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Resume" Relationship="Self.FK__Hobbies__ResumeI__6FE99F9F" FromRole="Hobbies" ToRole="Resumes" />
+        </EntityType>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="LanguageId" />
+          </Key>
+          <Property Name="LanguageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ResumeId" Type="Int32" Nullable="false" />
+          <Property Name="LanguageName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Proficiency" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Resume" Relationship="Self.FK__Languages__Resum__6D0D32F4" FromRole="Languages" ToRole="Resumes" />
+        </EntityType>
+        <EntityType Name="PersonalInfo">
+          <Key>
+            <PropertyRef Name="PersonalInfoId" />
+          </Key>
+          <Property Name="PersonalInfoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ResumeId" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="JobTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PhotoPath" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Resume" Relationship="Self.FK__PersonalI__Resum__5BE2A6F2" FromRole="PersonalInfo" ToRole="Resumes" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="ProjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ResumeId" Type="Int32" Nullable="false" />
+          <Property Name="ProjectName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Technologies" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectLink" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Resume" Relationship="Self.FK__Projects__Resume__6754599E" FromRole="Projects" ToRole="Resumes" />
+        </EntityType>
+        <EntityType Name="Resume">
+          <Key>
+            <PropertyRef Name="ResumeId" />
+          </Key>
+          <Property Name="ResumeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TemplateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PrimaryColor" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SecondaryColor" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TextColor" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="BackgroundColor" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FontFamily" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FontSize" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Theme" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Spacing" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SectionOrder" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="HiddenSections" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Certifications" Relationship="Self.FK__Certifica__Resum__6A30C649" FromRole="Resumes" ToRole="Certifications" />
+          <NavigationProperty Name="Educations" Relationship="Self.FK__Education__Resum__5EBF139D" FromRole="Resumes" ToRole="Education" />
+          <NavigationProperty Name="Experiences" Relationship="Self.FK__Experienc__Resum__619B8048" FromRole="Resumes" ToRole="Experience" />
+          <NavigationProperty Name="Hobbies" Relationship="Self.FK__Hobbies__ResumeI__6FE99F9F" FromRole="Resumes" ToRole="Hobbies" />
+          <NavigationProperty Name="Languages" Relationship="Self.FK__Languages__Resum__6D0D32F4" FromRole="Resumes" ToRole="Languages" />
+          <NavigationProperty Name="PersonalInfoes" Relationship="Self.FK__PersonalI__Resum__5BE2A6F2" FromRole="Resumes" ToRole="PersonalInfo" />
+          <NavigationProperty Name="Projects" Relationship="Self.FK__Projects__Resume__6754599E" FromRole="Resumes" ToRole="Projects" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Resumes__UserId__4D94879B" FromRole="Resumes" ToRole="Users" />
+          <NavigationProperty Name="Skills" Relationship="Self.FK__Skills__ResumeId__6477ECF3" FromRole="Resumes" ToRole="Skills" />
+        </EntityType>
+        <EntityType Name="Skill">
+          <Key>
+            <PropertyRef Name="SkillId" />
+          </Key>
+          <Property Name="SkillId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ResumeId" Type="Int32" Nullable="false" />
+          <Property Name="SkillName" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="SkillLevel" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Resume" Relationship="Self.FK__Skills__ResumeId__6477ECF3" FromRole="Skills" ToRole="Resumes" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Resumes" Relationship="Self.FK__Resumes__UserId__4D94879B" FromRole="Users" ToRole="Resumes" />
+        </EntityType>
+        <Association Name="FK__Certifica__Resum__6A30C649">
+          <End Role="Resumes" Type="Self.Resume" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Certifications" Type="Self.Certification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resumes">
+              <PropertyRef Name="ResumeId" />
+            </Principal>
+            <Dependent Role="Certifications">
+              <PropertyRef Name="ResumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Education__Resum__5EBF139D">
+          <End Role="Resumes" Type="Self.Resume" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Education" Type="Self.Education" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resumes">
+              <PropertyRef Name="ResumeId" />
+            </Principal>
+            <Dependent Role="Education">
+              <PropertyRef Name="ResumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Experienc__Resum__619B8048">
+          <End Role="Resumes" Type="Self.Resume" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Experience" Type="Self.Experience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resumes">
+              <PropertyRef Name="ResumeId" />
+            </Principal>
+            <Dependent Role="Experience">
+              <PropertyRef Name="ResumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Hobbies__ResumeI__6FE99F9F">
+          <End Role="Resumes" Type="Self.Resume" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Hobbies" Type="Self.Hobby" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resumes">
+              <PropertyRef Name="ResumeId" />
+            </Principal>
+            <Dependent Role="Hobbies">
+              <PropertyRef Name="ResumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Languages__Resum__6D0D32F4">
+          <End Role="Resumes" Type="Self.Resume" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Languages" Type="Self.Language" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resumes">
+              <PropertyRef Name="ResumeId" />
+            </Principal>
+            <Dependent Role="Languages">
+              <PropertyRef Name="ResumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PersonalI__Resum__5BE2A6F2">
+          <End Role="Resumes" Type="Self.Resume" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resumes">
+              <PropertyRef Name="ResumeId" />
+            </Principal>
+            <Dependent Role="PersonalInfo">
+              <PropertyRef Name="ResumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Projects__Resume__6754599E">
+          <End Role="Resumes" Type="Self.Resume" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Projects" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resumes">
+              <PropertyRef Name="ResumeId" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="ResumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Resumes__UserId__4D94879B">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Resumes" Type="Self.Resume" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Resumes">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Skills__ResumeId__6477ECF3">
+          <End Role="Resumes" Type="Self.Resume" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Skills" Type="Self.Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resumes">
+              <PropertyRef Name="ResumeId" />
+            </Principal>
+            <Dependent Role="Skills">
+              <PropertyRef Name="ResumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ResumeBuilderDBnewEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Certifications" EntityType="Self.Certification" />
+          <EntitySet Name="Educations" EntityType="Self.Education" />
+          <EntitySet Name="Experiences" EntityType="Self.Experience" />
+          <EntitySet Name="Hobbies" EntityType="Self.Hobby" />
+          <EntitySet Name="Languages" EntityType="Self.Language" />
+          <EntitySet Name="PersonalInfoes" EntityType="Self.PersonalInfo" />
+          <EntitySet Name="Projects" EntityType="Self.Project" />
+          <EntitySet Name="Resumes" EntityType="Self.Resume" />
+          <EntitySet Name="Skills" EntityType="Self.Skill" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__Certifica__Resum__6A30C649" Association="Self.FK__Certifica__Resum__6A30C649">
+            <End Role="Resumes" EntitySet="Resumes" />
+            <End Role="Certifications" EntitySet="Certifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Education__Resum__5EBF139D" Association="Self.FK__Education__Resum__5EBF139D">
+            <End Role="Resumes" EntitySet="Resumes" />
+            <End Role="Education" EntitySet="Educations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Experienc__Resum__619B8048" Association="Self.FK__Experienc__Resum__619B8048">
+            <End Role="Resumes" EntitySet="Resumes" />
+            <End Role="Experience" EntitySet="Experiences" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Hobbies__ResumeI__6FE99F9F" Association="Self.FK__Hobbies__ResumeI__6FE99F9F">
+            <End Role="Resumes" EntitySet="Resumes" />
+            <End Role="Hobbies" EntitySet="Hobbies" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Languages__Resum__6D0D32F4" Association="Self.FK__Languages__Resum__6D0D32F4">
+            <End Role="Resumes" EntitySet="Resumes" />
+            <End Role="Languages" EntitySet="Languages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PersonalI__Resum__5BE2A6F2" Association="Self.FK__PersonalI__Resum__5BE2A6F2">
+            <End Role="Resumes" EntitySet="Resumes" />
+            <End Role="PersonalInfo" EntitySet="PersonalInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Projects__Resume__6754599E" Association="Self.FK__Projects__Resume__6754599E">
+            <End Role="Resumes" EntitySet="Resumes" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Resumes__UserId__4D94879B" Association="Self.FK__Resumes__UserId__4D94879B">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Resumes" EntitySet="Resumes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Skills__ResumeId__6477ECF3" Association="Self.FK__Skills__ResumeId__6477ECF3">
+            <End Role="Resumes" EntitySet="Resumes" />
+            <End Role="Skills" EntitySet="Skills" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ResumeBuilderDBnewModelStoreContainer" CdmEntityContainer="ResumeBuilderDBnewEntities">
+          <EntitySetMapping Name="Certifications">
+            <EntityTypeMapping TypeName="ResumeBuilderDBnewModel.Certification">
+              <MappingFragment StoreEntitySet="Certifications">
+                <ScalarProperty Name="CertificationId" ColumnName="CertificationId" />
+                <ScalarProperty Name="ResumeId" ColumnName="ResumeId" />
+                <ScalarProperty Name="CertificateName" ColumnName="CertificateName" />
+                <ScalarProperty Name="Authority" ColumnName="Authority" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Educations">
+            <EntityTypeMapping TypeName="ResumeBuilderDBnewModel.Education">
+              <MappingFragment StoreEntitySet="Education">
+                <ScalarProperty Name="EducationId" ColumnName="EducationId" />
+                <ScalarProperty Name="ResumeId" ColumnName="ResumeId" />
+                <ScalarProperty Name="Degree" ColumnName="Degree" />
+                <ScalarProperty Name="Institute" ColumnName="Institute" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Experiences">
+            <EntityTypeMapping TypeName="ResumeBuilderDBnewModel.Experience">
+              <MappingFragment StoreEntitySet="Experience">
+                <ScalarProperty Name="ExperienceId" ColumnName="ExperienceId" />
+                <ScalarProperty Name="ResumeId" ColumnName="ResumeId" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hobbies">
+            <EntityTypeMapping TypeName="ResumeBuilderDBnewModel.Hobby">
+              <MappingFragment StoreEntitySet="Hobbies">
+                <ScalarProperty Name="HobbyId" ColumnName="HobbyId" />
+                <ScalarProperty Name="ResumeId" ColumnName="ResumeId" />
+                <ScalarProperty Name="HobbyName" ColumnName="HobbyName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Languages">
+            <EntityTypeMapping TypeName="ResumeBuilderDBnewModel.Language">
+              <MappingFragment StoreEntitySet="Languages">
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="ResumeId" ColumnName="ResumeId" />
+                <ScalarProperty Name="LanguageName" ColumnName="LanguageName" />
+                <ScalarProperty Name="Proficiency" ColumnName="Proficiency" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonalInfoes">
+            <EntityTypeMapping TypeName="ResumeBuilderDBnewModel.PersonalInfo">
+              <MappingFragment StoreEntitySet="PersonalInfo">
+                <ScalarProperty Name="PersonalInfoId" ColumnName="PersonalInfoId" />
+                <ScalarProperty Name="ResumeId" ColumnName="ResumeId" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PhotoPath" ColumnName="PhotoPath" />
+                <ScalarProperty Name="Summary" ColumnName="Summary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="ResumeBuilderDBnewModel.Project">
+              <MappingFragment StoreEntitySet="Projects">
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="ResumeId" ColumnName="ResumeId" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="Technologies" ColumnName="Technologies" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ProjectLink" ColumnName="ProjectLink" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Resumes">
+            <EntityTypeMapping TypeName="ResumeBuilderDBnewModel.Resume">
+              <MappingFragment StoreEntitySet="Resumes">
+                <ScalarProperty Name="ResumeId" ColumnName="ResumeId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="TemplateName" ColumnName="TemplateName" />
+                <ScalarProperty Name="PrimaryColor" ColumnName="PrimaryColor" />
+                <ScalarProperty Name="SecondaryColor" ColumnName="SecondaryColor" />
+                <ScalarProperty Name="TextColor" ColumnName="TextColor" />
+                <ScalarProperty Name="BackgroundColor" ColumnName="BackgroundColor" />
+                <ScalarProperty Name="FontFamily" ColumnName="FontFamily" />
+                <ScalarProperty Name="FontSize" ColumnName="FontSize" />
+                <ScalarProperty Name="Theme" ColumnName="Theme" />
+                <ScalarProperty Name="Spacing" ColumnName="Spacing" />
+                <ScalarProperty Name="SectionOrder" ColumnName="SectionOrder" />
+                <ScalarProperty Name="HiddenSections" ColumnName="HiddenSections" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Skills">
+            <EntityTypeMapping TypeName="ResumeBuilderDBnewModel.Skill">
+              <MappingFragment StoreEntitySet="Skills">
+                <ScalarProperty Name="SkillId" ColumnName="SkillId" />
+                <ScalarProperty Name="ResumeId" ColumnName="ResumeId" />
+                <ScalarProperty Name="SkillName" ColumnName="SkillName" />
+                <ScalarProperty Name="SkillLevel" ColumnName="SkillLevel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ResumeBuilderDBnewModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
