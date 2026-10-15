@@ -3,6 +3,11 @@
 @{
     var p = Model.Personal ?? new PersonalInfo();
     string photo = string.IsNullOrEmpty(p.PhotoPath) ? "" : Url.Content(p.PhotoPath);
+
+    string fullName = (p.FullName ?? "").Trim();
+    string firstPart = fullName, lastPart = "";
+    int sp = fullName.LastIndexOf(' ');
+    if (sp > 0) { firstPart = fullName.Substring(0, sp); lastPart = fullName.Substring(sp + 1); }
 }
 <div class="doc tpl-classic" id="resumeDoc">
 
@@ -12,7 +17,7 @@
             <div class="photo"><img src="@photo" alt="" /></div>
         }
         <div class="head-text">
-            <h1>@p.FullName</h1>
+            <h1><span class="fn">@firstPart</span> <span class="ln">@lastPart</span></h1>
             @if (!string.IsNullOrEmpty(p.JobTitle))
             {
                 <div class="jt">@p.JobTitle</div>
@@ -28,9 +33,30 @@
         </div>
     </header>
 
+    <div class="band"></div>
+
     <div class="doc-body">
 
         <div class="col col-side">
+
+            <section class="sec contact-sec" data-sec="contact">
+                <h2>Contact</h2>
+                <ul class="plain contact-list">
+                    @if (!string.IsNullOrEmpty(p.Email))
+                    {
+                        <li><i class="ic">&#9993;</i><span>@p.Email</span></li>
+}
+                    @if (!string.IsNullOrEmpty(p.Phone))
+                    {
+                        <li><i class="ic">&#9990;</i><span>@p.Phone</span></li>
+}
+                    @if (!string.IsNullOrEmpty(p.Address))
+                    {
+                        <li><i class="ic">&#8962;</i><span>@p.Address</span></li>
+}
+                </ul>
+            </section>
+
             @if (Model.Skills.Any())
             {
                 <section class="sec" data-sec="skills">

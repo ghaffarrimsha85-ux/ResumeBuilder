@@ -14,6 +14,28 @@
     var SIZES = { Small: '12px', Medium: '13.5px', Large: '15px' };
     var GAPS = { Compact: '10px', Normal: '16px', Spacious: '24px' };
 
+    // which section goes where, per template
+    var LAYOUT = {
+        _default: { side: ['skills', 'certifications', 'languages', 'hobbies', 'contact'] },
+        noir: { side: ['contact', 'education', 'certifications', 'languages', 'hobbies'] },
+        azure: { band: ['summary', 'contact'], side: ['education', 'certifications', 'languages', 'hobbies'] },
+        studio: { side: ['education', 'languages', 'certifications', 'hobbies', 'contact'] }
+    };
+
+    function placeSections(el, tpl) {
+        var lay = LAYOUT[tpl] || LAYOUT._default;
+        var side = el.querySelector('.col-side');
+        var main = el.querySelector('.col-main');
+        var band = el.querySelector('.band');
+        el.querySelectorAll('.sec').forEach(function (sec) {
+            var key = sec.getAttribute('data-sec');
+            var target = main;
+            if (lay.band && lay.band.indexOf(key) > -1) target = band;
+            else if (lay.side.indexOf(key) > -1) target = side;
+            if (sec.parentNode !== target) target.appendChild(sec);
+        });
+    }
+
     /* ---------- state ---------- */
     function normalizeOrder(str) {
         var saved = str ? str.split(',').filter(function (k) { return DEF_ORDER.indexOf(k) > -1; }) : [];
@@ -49,6 +71,7 @@
     /* ---------- apply settings ---------- */
     function styleDoc(el, tplName) {
         el.className = 'doc tpl-' + tplName;
+        placeSections(el, tplName);
         el.setAttribute('data-theme', S.theme.toLowerCase());
         el.style.setProperty('--pri', S.pri);
         el.style.setProperty('--sec', S.sec);

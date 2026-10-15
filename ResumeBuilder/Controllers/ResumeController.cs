@@ -185,7 +185,7 @@ namespace ResumeBuilder.Controllers
         static readonly string[] SectionKeys =
             { "summary", "experience", "education", "projects", "skills", "certifications", "languages", "hobbies" };
         static readonly string[] Templates =
-      { "classic", "modern", "executive", "minimal", "creative", "compact", "elegant", "bold", "timeline" };
+     { "classic", "modern", "executive", "minimal", "creative", "compact", "elegant", "bold", "timeline", "noir", "azure", "studio" };
         static bool IsColor(string c)
         {
             return !string.IsNullOrEmpty(c) && Regex.IsMatch(c, "^#[0-9a-fA-F]{6}$");
